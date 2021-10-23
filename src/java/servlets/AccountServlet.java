@@ -21,8 +21,7 @@ import models.Item;
  */
 public class AccountServlet extends HttpServlet {
 
-    ArrayList<Item> listItems = new ArrayList<>();
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -57,16 +56,18 @@ public class AccountServlet extends HttpServlet {
             session.setAttribute("username_session", session.getAttribute("username_s"));
         }
         
-        
-        
+        ArrayList<Item> listItems = new ArrayList<>();
+
         listItems.add(new Item((String)request.getParameter("item")));
         
+        
+        if(request.getParameter("item") != null){
         for(int i = 0; i <listItems.size(); i++)
         {
             session.setAttribute("ArrayItems", listItems.get(i).getItemName());
             session.setAttribute("ItemsList",session.getAttribute("ArrayItems") );
         }
-        
+        }
         
         String deleted = request.getParameter("delete");
         
