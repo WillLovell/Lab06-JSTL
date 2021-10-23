@@ -54,7 +54,7 @@ public class AccountServlet extends HttpServlet {
         
         
         if(session.getAttribute("username_s") != null){
-            request.setAttribute("username_session", session.getAttribute("username_s"));
+            session.setAttribute("username_session", session.getAttribute("username_s"));
         }
         
         
@@ -63,7 +63,8 @@ public class AccountServlet extends HttpServlet {
         
         for(int i = 0; i <listItems.size(); i++)
         {
-            request.setAttribute("ItemsList", listItems.get(i).getItemName());
+            session.setAttribute("ArrayItems", listItems.get(i).getItemName());
+            session.setAttribute("ItemsList",session.getAttribute("ArrayItems") );
         }
         
         
