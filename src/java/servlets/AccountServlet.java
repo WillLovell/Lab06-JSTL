@@ -68,12 +68,11 @@ public class AccountServlet extends HttpServlet {
         
         
         
-        if(request.getParameter("item") != null){
+        if(request.getParameter("item") != null && !request.getParameter("item").equals("")){
         listItems.add(new Item((String)request.getParameter("item")));
-        for(int i = 0; i <listItems.size(); i++)
-        {
+        
             session.setAttribute("ItemsList",listItems);
-        }
+  
         }
         
      
