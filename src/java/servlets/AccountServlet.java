@@ -21,12 +21,12 @@ import models.Item;
  */
 public class AccountServlet extends HttpServlet {
 
-    
+    ArrayList<Item> listItems = new ArrayList<>();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         request.setAttribute("username_session", session.getAttribute("username_s"));
-        
+        //ArrayList<Item> listItems = new ArrayList<>();
         if(request.getQueryString()!= null){
             if(request.getQueryString().equals("logout")){
             getServletContext().getRequestDispatcher("/WEB-INF/Register.jsp").forward(request,response);
@@ -34,6 +34,13 @@ public class AccountServlet extends HttpServlet {
             session = request.getSession();
             }
         }
+        if(session.getAttribute("ItemsList") != null){
+            for(int i = 0; i < listItems.size(); i++){
+            session.setAttribute("ItemsList", listItems);
+            }
+        }
+        
+        
         
         
         getServletContext().getRequestDispatcher("/WEB-INF/Register.jsp").forward(request, response);
@@ -56,27 +63,39 @@ public class AccountServlet extends HttpServlet {
             session.setAttribute("username_session", session.getAttribute("username_s"));
         }
         
-        ArrayList<Item> listItems = new ArrayList<>();
+        
 
-        listItems.add(new Item((String)request.getParameter("item")));
+        
         
         
         if(request.getParameter("item") != null){
+        listItems.add(new Item((String)request.getParameter("item")));
         for(int i = 0; i <listItems.size(); i++)
         {
-            session.setAttribute("ArrayItems", listItems.get(i).getItemName());
-            session.setAttribute("ItemsList",session.getAttribute("ArrayItems") );
+            session.setAttribute("ItemsList",listItems);
         }
         }
         
-        String deleted = request.getParameter("delete");
+     
+        if(request.getParameter("delete") != null){
+        String checkDelete = request.getParameter("delete");
         
+        
+        if(checkDelete.equals("delete")){
+        String deleted = request.getParameter("select");
         for(int i = 0; i <listItems.size(); i++)
         {
-            if(listItems.get(i).equals(deleted)){
+            if(deleted != null && deleted.equals(listItems.get(i).getItemName())){
                 listItems.remove(i);
+               session.setAttribute("ItemsList", listItems);
+                
             }
         }
+        
+        
+        }
+        }
+        
         
         //request.setAttribute("itemListFinal", listItems);
         

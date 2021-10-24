@@ -22,19 +22,19 @@
             Add item: <input type="text" name="item" value="" /><input type="submit" value="Add" name="add"/>
         </form>
         
-        <form method="post" action="ShoppingList" name="delete">
+        <form method="post" action="ShoppingList" name="deleted">
 <c:forEach var="Item" items="${ItemsList}">
 <tr>    
-<input type="radio" name="select">
-<td>${Item}</td><br>
+<input type="radio" name="select" value="${Item.itemName}">
+<td name="">${Item.itemName}</td><br>
 <td>
-<input type="submit" name=="delete" value="delete">
+
 </td>
 </tr>
-         </form>
+         
 </c:forEach>
-        
-        
+<input type="submit" name="delete" value="delete">        
+</form>        
         
     </body>
 </html>
